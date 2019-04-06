@@ -69,7 +69,7 @@ var AppComponent = /** @class */ (function () {
         this.vtru = false;
         this.counter = 0;
         this.vchets = [9, 79];
-        this.position = true;
+        this.position = false;
         this.pos = [3,4];
     }
     AppComponent.prototype.generate = function () {
