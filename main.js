@@ -69,36 +69,46 @@ var AppComponent = /** @class */ (function () {
         this.vtru = false;
         this.counter = 0;
         this.vchets = [9, 79];
+        this.position = true;
+        this.pos = [3,4];
     }
     AppComponent.prototype.generate = function () {
         this.generated = true;
         this.vrandom = Math.floor(Math.random() * (this.max)) + this.min;
-        if (!this.vtru) {
-            this.random = this.vrandom
-        }
-        else {
-            if (this.counter > 0 && this.counter < 3 && ((this.vrandom % 2) === 1) && this.vchets.length > 0 && this.max > 78) {
-                this.random = 79;
-                this.vchets.splice(this.vchets.indexOf(this.random), 1);
-            }
-            else if (this.counter > 6 && this.vchets.includes(9) && this.max > 8) {
-                this.random = 9;
-                this.vchets.splice(this.vchets.indexOf(this.random), 1);
-            }
-            else if (this.vchets.length > 0 && ((this.vrandom % 3) === 2)) {
-                this.vrandom = this.vchets[Math.floor(Math.random() * this.vchets.length)];
-                if (this.vrandom <= this.max) {
-                    this.random = this.vrandom;
-                    this.vchets.splice(this.vchets.indexOf(this.random), 1);
-                }
-                else {
-                    this.random = Math.floor(Math.random() * (this.max)) + this.min;
-                }
-            }
-            else {
-                this.random = this.vrandom;
-            }
-        }
+        if (this.position && this.vtru) {
+        	if(this.pos.includes(this.counter)) {
+        		this.random = 9;
+	            this.vchets.splice(this.vchets.indexOf(this.random), 1);
+	            this.position = false;
+        	}
+        }else {
+        	if (!this.vtru) {
+	            this.random = this.vrandom;
+	        }
+	        else {
+	            if (this.counter > 0 && this.counter < 3 && ((this.vrandom % 2) === 1) && this.vchets.length > 0 && this.max > 78) {
+	                this.random = 79;
+	                this.vchets.splice(this.vchets.indexOf(this.random), 1);
+	            }
+	            else if (this.counter > 6 && this.vchets.includes(9) && this.max > 8) {
+	                this.random = 9;
+	                this.vchets.splice(this.vchets.indexOf(this.random), 1);
+	            }
+	            else if (this.vchets.length > 0 && ((this.vrandom % 3) === 2)) {
+	                this.vrandom = this.vchets[Math.floor(Math.random() * this.vchets.length)];
+	                if (this.vrandom <= this.max) {
+	                    this.random = this.vrandom;
+	                    this.vchets.splice(this.vchets.indexOf(this.random), 1);
+	                }
+	                else {
+	                    this.random = Math.floor(Math.random() * (this.max)) + this.min;
+	                }
+	            }
+	            else {
+	                this.random = this.vrandom;
+	            }
+	        }
+        }        
         this.counter++;
     };
     AppComponent.prototype.tru = function () {
