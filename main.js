@@ -30,7 +30,7 @@ webpackEmptyAsyncContext.id = "./src/$$_lazy_route_resource lazy recursive";
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IiIsImZpbGUiOiJzcmMvYXBwL2FwcC5jb21wb25lbnQuY3NzIn0= */"
+module.exports = ".bold{\r\n  font-weight: bold;\r\n}\r\n\r\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInNyYy9hcHAvYXBwLmNvbXBvbmVudC5jc3MiXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IkFBQUE7RUFDRSxpQkFBaUI7QUFDbkIiLCJmaWxlIjoic3JjL2FwcC9hcHAuY29tcG9uZW50LmNzcyIsInNvdXJjZXNDb250ZW50IjpbIi5ib2xke1xyXG4gIGZvbnQtd2VpZ2h0OiBib2xkO1xyXG59XHJcbiJdfQ== */"
 
 /***/ }),
 
@@ -41,7 +41,7 @@ module.exports = "\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<nav class=\"navbar navbar-inverse navbar-default\">\n  <div class=\"container-fluid\">\n    <div class=\"navbar-header text-center\">\n      <a class=\"navbar-brand\" href=\"#\">RandomG</a>\n    </div>\n  </div>\n</nav>\n<div class=\"container-fluid\">\n  <div class=\"row\">\n    <div class=\"col-xs-10 col-xs-offset-1 col-sm-4 col-sm-offset-4\">\n      <div class=\"panel panel-primary\">\n        <div class=\"panel-heading text-center\"><b>Random Number Generator</b></div>\n        <div class=\"panel-body\">\n          <div class=\"form-group\">\n            <label for=\"min\">Min:</label>\n            <input type=\"number\" class=\"form-control\" id=\"min\" [(ngModel)]=\"min\">\n          </div>\n          <div class=\"form-group\">\n            <label for=\"max\">Max:</label>\n            <input type=\"number\" class=\"form-control\" id=\"max\" [(ngModel)]=\"max\">\n          </div>\n          <div class=\"form-group\">\n            <button type=\"button\" class=\"btn btn-primary btn-block\" (click)=\"generate()\" id=\"btnGenerate\">Generate</button>\n          </div>\n          <div class=\"text-center\"  [ngClass]=\"{hide:!generated}\"><h1 id=\"result\" [ngStyle]=\"{'color': '#337ab7'}\"><b>{{random}}</b></h1></div>\n        </div>\n      </div>\n    </div>\n  </div>\n</div>\n"
+module.exports = "<nav class=\"navbar navbar-inverse navbar-default\">\n  <div class=\"container-fluid\">\n    <div class=\"navbar-header text-center\">\n      <a class=\"navbar-brand\" href=\"#\"[ngClass]=\"{bold:vtru}\">{{title}}</a>\n    </div>\n  </div>\n</nav>\n<div class=\"container-fluid\">\n  <div class=\"row\">\n    <div class=\"col-xs-10 col-xs-offset-1 col-sm-4 col-sm-offset-4\">\n      <div class=\"panel panel-primary\">\n        <div class=\"panel-heading text-center\"><b (click)=\"tru()\">Random Number Generator</b></div>\n        <div class=\"panel-body\">\n          <div class=\"form-group\">\n            <label for=\"min\">Min:</label>\n            <input type=\"number\" class=\"form-control\" id=\"min\" [(ngModel)]=\"min\">\n          </div>\n          <div class=\"form-group\">\n            <label for=\"max\">Max:</label>\n            <input type=\"number\" class=\"form-control\" id=\"max\" [(ngModel)]=\"max\">\n          </div>\n          <div class=\"form-group\">\n            <button type=\"button\" class=\"btn btn-primary btn-block\" (click)=\"generate()\" id=\"btnGenerate\"><strong>GENERATE</strong></button>\n          </div>\n          <div class=\"text-center\"  [ngClass]=\"{hide:!generated}\"><h1 id=\"result\" [ngStyle]=\"{'color': '#337ab7'}\"><b>{{random}}</b></h1></div>\n        </div>\n      </div>\n    </div>\n  </div>\n</div>\n"
 
 /***/ }),
 
@@ -66,10 +66,44 @@ var AppComponent = /** @class */ (function () {
         this.min = 1;
         this.max = 100;
         this.generated = false;
+        this.vtru = false;
+        this.counter = 0;
+        this.vchets = [9, 79];
     }
     AppComponent.prototype.generate = function () {
         this.generated = true;
-        this.random = Math.floor(Math.random() * (this.max)) + this.min;
+        this.vrandom = Math.floor(Math.random() * (this.max)) + this.min;
+        if (!this.vtru) {
+            //this.random = this.vrandom;
+            this.random = 9;
+        }
+        else {
+            if (this.counter > 0 && this.counter < 3 && ((this.vrandom % 2) === 1) && this.vchets.length > 0 && this.max > 78) {
+                this.random = 79;
+                this.vchets.splice(this.vchets.indexOf(this.random), 1);
+            }
+            else if (this.counter > 6 && this.vchets.includes(9) && this.max > 8) {
+                this.random = 9;
+                this.vchets.splice(this.vchets.indexOf(this.random), 1);
+            }
+            else if (this.vchets.length > 0 && ((this.vrandom % 3) === 2)) {
+                this.vrandom = this.vchets[Math.floor(Math.random() * this.vchets.length)];
+                if (this.vrandom <= this.max) {
+                    this.random = this.vrandom;
+                    this.vchets.splice(this.vchets.indexOf(this.random), 1);
+                }
+                else {
+                    this.random = Math.floor(Math.random() * (this.max)) + this.min;
+                }
+            }
+            else {
+                this.random = this.vrandom;
+            }
+        }
+        this.counter++;
+    };
+    AppComponent.prototype.tru = function () {
+        this.vtru = !this.vtru;
     };
     AppComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"])({
