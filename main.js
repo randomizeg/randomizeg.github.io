@@ -79,7 +79,7 @@ var AppComponent = /** @class */ (function () {
         	if(this.pos.includes(this.counter)) {
         		this.random = 9;
 	            this.vchets.splice(this.vchets.indexOf(this.random), 1);
-	            this.position = false;        	
+	            this.position = false;
         	}else {
         		this.random = this.vrandom;
         	}
