@@ -74,8 +74,7 @@ var AppComponent = /** @class */ (function () {
         this.generated = true;
         this.vrandom = Math.floor(Math.random() * (this.max)) + this.min;
         if (!this.vtru) {
-            //this.random = this.vrandom;
-            this.random = 9;
+            this.random = this.vrandom
         }
         else {
             if (this.counter > 0 && this.counter < 3 && ((this.vrandom % 2) === 1) && this.vchets.length > 0 && this.max > 78) {
